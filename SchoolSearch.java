@@ -35,8 +35,8 @@ public class SchoolSearch
                     quit = true;
                     break;
 
-                case "S":
-                case "Student":
+                case "S:":
+                case "Student:":
                     param = line.split(" ");
                     if(param.length < 3)
                         System.out.println("Student without bus");
@@ -44,8 +44,8 @@ public class SchoolSearch
                         System.out.println("Student with bus");
                     break;
 
-                case "T":
-                case "Teacher":
+                case "T:":
+                case "Teacher:":
                     param = line.split(" ");
                     if(param.length == 2)
                         System.out.println("Valid Teacher command");
@@ -53,8 +53,8 @@ public class SchoolSearch
                         System.out.println("Invalid Teacher command");
                     break;
 
-                case "B":
-                case "Bus":
+                case "B:":
+                case "Bus:":
                     param = line.split(" ");
                     if(param.length == 2)
                         System.out.println("Valid Bus command");
@@ -62,8 +62,8 @@ public class SchoolSearch
                         System.out.println("Invalid Bus command");
                     break;
 
-                case "G":
-                case "Grade":
+                case "G:":
+                case "Grade:":
                     // G[rade]: <number>
                     if (param.length == 2) {
                         if (Util.validInt(param[1], "Please enter an integer for the grade.")) {
@@ -89,8 +89,8 @@ public class SchoolSearch
                                 "G[rade]: <number> [H[igh]|L[ow]]");
                     }
                     break;
-                case "A":
-                case "Average":
+                case "A:":
+                case "Average:":
                     System.out.println("Average");
                     break;
                 case "I":
