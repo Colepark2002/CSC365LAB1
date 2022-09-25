@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.io.*;
 import java.util.ArrayList;
 
-public class schoolsearch
+public class SchoolSearch
 {
     public static void main(String[] args) throws IOException {
         boolean quit = false;
@@ -28,8 +28,8 @@ public class schoolsearch
         while (!quit)
         {
             String line = input.nextLine();
-            String[] param;
-            switch (line)
+            String[] param = line.split(" ");
+            switch (param[0])
             {
                 case "Q":
                 case "Quit":
@@ -65,12 +65,20 @@ public class schoolsearch
 
                 case "G":
                 case "Grade":
-                    param = line.split(" ");
-                    if(param.length < 3)
-                        System.out.println("Grade with High or Low ");
-                    else
-                        System.out.println("Grade without high or low");
-                    System.out.println("Grade");
+                    // G[rade]: <number>
+                    if (param.length == 2) {
+                        if (Util.validInt(param[1], "Please enter an integer for the grade.")) {
+                            int number = Integer.parseInt(param[1]);
+                            findGrade(number, studentInfo);
+                        }
+                    // G[rade]: <number> [H[igh]|L[ow]]
+                    } else if (param.length == 3) {
+                        System.out.println("Grade with high or low");
+                    // Wrong format
+                    } else {
+                        System.out.println("Please format your query in the form " +
+                                "G[rade]: <number> [H[igh]|L[ow]]");
+                    }
                     break;
                 case "A":
                 case "Average":
@@ -102,9 +110,16 @@ public class schoolsearch
 
     }
 
-    public void Grade()
-    {
-
+    // assumes studentInfo is properly formatted
+    public static void findGrade(int qGrade, ArrayList<String[]> studentInfo) {
+        for (String[] student : studentInfo) {
+            int sGrade = Integer.parseInt(student[Util.Schema.GRADE.ordinal()]);
+            if (qGrade == sGrade){
+                System.out.println(student[Util.Schema.ST_LAST.ordinal()] +
+                                ", " +
+                                student[Util.Schema.ST_FIRST.ordinal()]);
+            }
+        }
     }
 
     public void Average()
