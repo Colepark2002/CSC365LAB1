@@ -24,4 +24,17 @@ public class Util {
             return false;
         }
     }
+
+    /**
+     * @param value the string you want to validate
+     * @return true if value can be parsed as a double, false otherwise
+     */
+    public static boolean validDouble(String value) {
+        try {
+            Double.parseDouble(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }

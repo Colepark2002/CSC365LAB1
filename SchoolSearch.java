@@ -11,7 +11,7 @@ public class SchoolSearch
             Database db = new Database(dbPath);
             interact(inputStream, db);
         } catch (IOException e) {
-            System.out.printf("Database %s could not be loaded. \n", dbPath);
+            System.out.printf("Database %s could not be initialized. \n", dbPath);
         }
     }
 
@@ -70,10 +70,20 @@ public class SchoolSearch
                             int number = Integer.parseInt(param[1]);
                             db.printGrade(number);
                         }
-                        // G[rade]: <number> [H[igh]|L[ow]]
+                    // G[rade]: <number> [H[igh]|L[ow]]
                     } else if (param.length == 3) {
-                        System.out.println("Grade with high or low");
-                        // Wrong format
+                        if (Util.validInt(param[1], "Please enter an integer for the grade.")) {
+                            int number = Integer.parseInt(param[1]);
+                            if (param[2].equals("H") || param[2].equals("High")) {
+                                db.printHighGrade(number);
+                            } else if (param[2].equals("L") || param[2].equals("Low")) {
+                                db.printLowGrade(number);
+                            } else {
+                                System.out.println("Please format your query in the form " +
+                                        "G[rade]: <number> [H[igh]|L[ow]]");
+                            }
+                        }
+                    // Wrong format
                     } else {
                         System.out.println("Please format your query in the form " +
                                 "G[rade]: <number> [H[igh]|L[ow]]");

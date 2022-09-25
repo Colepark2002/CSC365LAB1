@@ -1,12 +1,20 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Database {
     ArrayList<String[]> studentInfo;
-    private enum Schema {
-        ST_LAST, ST_FIRST, GRADE, ROOM, BUS, GPA, T_LAST, T_FIRST
-    }
+
+    // indexes of each attribute in the array
+    private static final int ST_LAST = 0; // student last name
+    private static final int ST_FIRST = 1;
+    private static final int GRADE = 2;
+    private static final int ROOM = 3;
+    private static final int BUS = 4;
+    private static final int GPA = 5;
+    private static final int T_LAST = 6; // teacher last name
+    private static final int T_FIRST = 7;
+    private static final int SCHEMA_LENGTH = 8;
+
 
     /**
      * Initializes a database
@@ -38,25 +46,61 @@ public class Database {
      */
     private boolean validFormat(String[] currInfo) {
         // check to see if input file has same length as db schema
-        if (currInfo.length != Schema.values().length) {
+        if (currInfo.length != SCHEMA_LENGTH) {
             return false;
         }
         // Bus, Grade, and Classroom are ints
-        return Util.validInt(currInfo[Schema.BUS.ordinal()]) &&
-                Util.validInt(currInfo[Schema.GRADE.ordinal()]) &&
-                Util.validInt(currInfo[Schema.ROOM.ordinal()]);
-        // GPA is a String in the spec, no need to check
+        return Util.validInt(currInfo[BUS]) &&
+                Util.validInt(currInfo[GRADE]) &&
+                Util.validInt(currInfo[ROOM]) &&
+                Util.validDouble(currInfo[GPA]);
+        // TODO: GPA is a String in the spec -- we'll check for double anyways
     }
 
-    // assumes studentInfo is properly formatted
     public void printGrade(int qGrade) {
         for (String[] student : studentInfo) {
-            int sGrade = Integer.parseInt(student[Schema.GRADE.ordinal()]);
+            int sGrade = Integer.parseInt(student[GRADE]);
             if (qGrade == sGrade){
                 System.out.printf("%s,%s\n",
-                        student[Schema.ST_LAST.ordinal()],
-                        student[Schema.ST_FIRST.ordinal()]);
+                        student[ST_LAST],
+                        student[ST_FIRST]);
             }
         }
+    }
+    public void printHighGrade(int qGrade) {
+        if (studentInfo.size() == 0) {
+            return;
+        }
+        double maxGpa = Double.MIN_VALUE;
+        String[] ans = new String[8];
+        for (String[] student : studentInfo) {
+            int sGrade = Integer.parseInt(student[GRADE]);
+            double gpa = Double.parseDouble(student[GPA]);
+            if (qGrade == sGrade && gpa > maxGpa){
+                maxGpa = gpa;
+                ans = student;
+            }
+        }
+        System.out.printf("%s,%s,%s,%s,%s,%s\n",
+                ans[ST_LAST], ans[ST_FIRST], ans[GPA],
+                ans[T_LAST], ans[T_FIRST], ans[BUS]);
+    }
+    public void printLowGrade(int qGrade) {
+        if (studentInfo.size() == 0) {
+            return;
+        }
+        double minGpa = Double.MAX_VALUE;
+        String[] ans = new String[8];
+        for (String[] student : studentInfo) {
+            int sGrade = Integer.parseInt(student[GRADE]);
+            double gpa = Double.parseDouble(student[GPA]);
+            if (qGrade == sGrade && gpa < minGpa){
+                minGpa = gpa;
+                ans = student;
+            }
+        }
+        System.out.printf("%s,%s,%s,%s,%s,%s\n",
+                ans[ST_LAST], ans[ST_FIRST], ans[GPA],
+                ans[T_LAST], ans[T_FIRST], ans[BUS]);
     }
 }
