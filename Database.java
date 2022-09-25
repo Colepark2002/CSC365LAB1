@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Database {
-    ArrayList<String[]> studentInfo;
+    private ArrayList<String[]> studentInfo;
 
     // indexes of each attribute in the array
     private static final int ST_LAST = 0; // student last name
