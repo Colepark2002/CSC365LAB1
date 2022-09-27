@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Database {
     private ArrayList<String[]> studentInfo;
@@ -133,4 +132,50 @@ public class Database {
                     grade, gradeCount[grade]);
         }
     }
+    public void student(String lastName, boolean bus)
+    {
+        if(!bus)
+        {
+            for(String[] student : studentInfo)
+            {
+                if(student[ST_LAST].equals(lastName))
+                {
+                    System.out.println(student[ST_LAST] + ", " + student[ST_FIRST] + ", " + student[GRADE] +
+                            ", " + student[ROOM] + ", " + student[T_LAST] + ", " + student[T_FIRST]);
+                }
+            }
+        }
+        else
+        {
+            for(String[] student : studentInfo)
+            {
+                if(student[ST_LAST].equals(lastName))
+                {
+                    System.out.println(student[ST_LAST] + ", " + student[ST_FIRST] + ", " + student[BUS]);
+                }
+            }
+        }
+    }
+    public void teacher(String lastname)
+    {
+        for(String[] student : studentInfo)
+        {
+            if(student[T_LAST].equals(lastname))
+            {
+                System.out.println(student[ST_LAST] + ", " + student[ST_FIRST]);
+            }
+        }
+    }
+    public void bus(int number)
+    {
+        for(String[] student : studentInfo)
+        {
+            if(Integer.parseInt(student[BUS]) == (number))
+            {
+                System.out.println(student[ST_LAST] + ", " + student[ST_FIRST] + ", " + student[GRADE]
+                        + ", " + student[ROOM]);
+            }
+        }
+    }
+
 }
