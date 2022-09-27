@@ -103,4 +103,20 @@ public class Database {
                 ans[ST_LAST], ans[ST_FIRST], ans[GPA],
                 ans[T_LAST], ans[T_FIRST], ans[BUS]);
     }
+    public void printAverage(int qGrade) {
+        int studentCount = 0;
+        double gpa = 0;
+        for (String[] student : studentInfo) {
+            int sGrade = Integer.parseInt(student[GRADE]);
+            if (qGrade == sGrade) {
+                studentCount++;
+                gpa += Double.parseDouble(student[GPA]);
+            }
+        }
+        if (studentCount > 0) {
+            gpa = gpa/studentCount;
+        }
+        System.out.printf("Grade: %s, Avg GPA %s\n",
+                qGrade, gpa);
+    }
 }

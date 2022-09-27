@@ -91,11 +91,18 @@ public class SchoolSearch
                     break;
                 case "A:":
                 case "Average:":
-                    System.out.println("Average");
+                    if (param.length == 2) {
+                        if (Util.validInt(param[1], "Please enter an integer for the grade.")) {
+                            int number = Integer.parseInt(param[1]);
+                            db.printAverage(number);
+                        }
+                    } else {
+                        System.out.println("Please format your query in the form A[verage]: <Number>");
+                    }
                     break;
                 case "I":
                 case "Info":
-                    System.out.println("Info");
+
                     break;
                 default:
                     System.out.println("Please enter a valid input.");
