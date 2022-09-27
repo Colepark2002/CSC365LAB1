@@ -102,7 +102,7 @@ public class SchoolSearch
                     break;
                 case "I":
                 case "Info":
-
+                    db.printInfo();
                     break;
                 default:
                     System.out.println("Please enter a valid input.");

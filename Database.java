@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Database {
     private ArrayList<String[]> studentInfo;
@@ -14,6 +15,7 @@ public class Database {
     private static final int T_LAST = 6; // teacher last name
     private static final int T_FIRST = 7;
     private static final int SCHEMA_LENGTH = 8;
+    private static final int VALID_GRADES = 6; //grades 0-6 accepted only
 
 
     /**
@@ -49,6 +51,7 @@ public class Database {
         if (currInfo.length != SCHEMA_LENGTH) {
             return false;
         }
+        //TODO: validate 0 <= grade <= VALID_GRADES
         // Bus, Grade, and Classroom are ints
         return Util.validInt(currInfo[BUS]) &&
                 Util.validInt(currInfo[GRADE]) &&
@@ -118,5 +121,16 @@ public class Database {
         }
         System.out.printf("Grade: %s, Avg GPA %s\n",
                 qGrade, gpa);
+    }
+    public void printInfo() {
+        int[] gradeCount = new int[VALID_GRADES+1];
+        for (String[] student : studentInfo) {
+            int sGrade = Integer.parseInt(student[GRADE]);
+            gradeCount[sGrade] += 1;
+        }
+        for (int grade = 0; grade < gradeCount.length; grade++) {
+            System.out.printf("%s: %s\n",
+                    grade, gradeCount[grade]);
+        }
     }
 }
