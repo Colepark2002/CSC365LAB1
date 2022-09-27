@@ -38,17 +38,14 @@ public class SchoolSearch
                 case "S:":
                 case "Student:":
                     param = line.split(" ");
-                    if(param.length < 3)
-                        System.out.println("Student without bus");
-                    else
-                        System.out.println("Student with bus");
+                    db.student(param[1], param.length >= 3);
                     break;
 
                 case "T:":
                 case "Teacher:":
                     param = line.split(" ");
                     if(param.length == 2)
-                        System.out.println("Valid Teacher command");
+                        db.teacher(param[1]);
                     else
                         System.out.println("Invalid Teacher command");
                     break;
@@ -57,7 +54,7 @@ public class SchoolSearch
                 case "Bus:":
                     param = line.split(" ");
                     if(param.length == 2)
-                        System.out.println("Valid Bus command");
+                        db.bus(Integer.parseInt(param[1]));
                     else
                         System.out.println("Invalid Bus command");
                     break;
