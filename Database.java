@@ -14,6 +14,7 @@ public class Database {
     private static final int T_LAST = 6; // teacher last name
     private static final int T_FIRST = 7;
     private static final int SCHEMA_LENGTH = 8;
+    private static final int VALID_GRADES = 6; //grades 0-6 accepted only
 
 
     /**
@@ -49,6 +50,7 @@ public class Database {
         if (currInfo.length != SCHEMA_LENGTH) {
             return false;
         }
+        //TODO: validate 0 <= grade <= VALID_GRADES
         // Bus, Grade, and Classroom are ints
         return Util.validInt(currInfo[BUS]) &&
                 Util.validInt(currInfo[GRADE]) &&
@@ -102,6 +104,33 @@ public class Database {
         System.out.printf("%s,%s,%s,%s,%s,%s\n",
                 ans[ST_LAST], ans[ST_FIRST], ans[GPA],
                 ans[T_LAST], ans[T_FIRST], ans[BUS]);
+    }
+    public void printAverage(int qGrade) {
+        int studentCount = 0;
+        double gpa = 0;
+        for (String[] student : studentInfo) {
+            int sGrade = Integer.parseInt(student[GRADE]);
+            if (qGrade == sGrade) {
+                studentCount++;
+                gpa += Double.parseDouble(student[GPA]);
+            }
+        }
+        if (studentCount > 0) {
+            gpa = gpa/studentCount;
+        }
+        System.out.printf("Grade: %s, Avg GPA %s\n",
+                qGrade, gpa);
+    }
+    public void printInfo() {
+        int[] gradeCount = new int[VALID_GRADES+1];
+        for (String[] student : studentInfo) {
+            int sGrade = Integer.parseInt(student[GRADE]);
+            gradeCount[sGrade] += 1;
+        }
+        for (int grade = 0; grade < gradeCount.length; grade++) {
+            System.out.printf("%s: %s\n",
+                    grade, gradeCount[grade]);
+        }
     }
     public void student(String lastName, boolean bus)
     {
