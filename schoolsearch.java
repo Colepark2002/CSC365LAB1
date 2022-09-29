@@ -1,8 +1,6 @@
-import java.util.Scanner;
 import java.io.*;
-import java.util.ArrayList;
 
-public class SchoolSearch
+public class schoolsearch
 {
     public static void main(String[] args) {
         String dbPath = "students.txt";

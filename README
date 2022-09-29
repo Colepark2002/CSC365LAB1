@@ -1,0 +1,4 @@
+Compile with:
+    javac schoolsearch.java Util.java Database.java
+Run with:
+    java schoolsearch
